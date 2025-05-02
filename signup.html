@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign In / Sign Up</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    
+  </style>
+</head>
+<body>
+  <center>
+    <div class="login-container">
+      <h2 id="formTitle">Sign In</h2>
+
+      <!-- Sign In Form -->
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required /><br>
+        <input type="password" id="password" placeholder="Password" required /><br>
+        <button type="submit">Sign In</button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" style="display: none;">
+        <input type="text" id="newUsername" placeholder="Username" required /><br>
+        <input type="email" id="newEmail" placeholder="Email" required /><br>
+        <input type="password" id="newPassword" placeholder="Password" required /><br>
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <!-- Toggle Link -->
+      <p id="toggleText">
+        Don't have an account? <a id="toggleForm">Sign Up</a>
+      </p>
+
+      <p id="message"></p>
+    </div>
+  </center>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const toggleFormLink = document.getElementById("toggleForm");
+    const formTitle = document.getElementById("formTitle");
+    const toggleText = document.getElementById("toggleText");
+    const message = document.getElementById("message");
+
+    // Switch between Sign In and Sign Up
+    function switchForms() {
+      if (loginForm.style.display !== "none") {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+        formTitle.textContent = "Sign Up";
+        toggleText.innerHTML = 'Already have an account? <a id="toggleForm">Sign In</a>';
+      } else {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        formTitle.textContent = "Sign In";
+        toggleText.innerHTML = 'Don\'t have an account? <a id="toggleForm">Sign Up</a>';
+      }
+      // Reattach toggle event listener
+      document.getElementById("toggleForm").addEventListener("click", switchForms);
+    }
+
+    // Attach initial toggle event
+    toggleFormLink.addEventListener("click", switchForms);
+
+    // Handle Sign In
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const user = document.getElementById("username").value;
+      message.textContent = "Signed in as " + user;
+
+      // Redirect to Tour Planner page
+      window.location.href = "./Tour planner.html";
+    });
+
+    // Handle Sign Up
+    signupForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const newUser = document.getElementById("newUsername").value;
+      const email = document.getElementById("newEmail").value;
+      message.textContent = "Account created for " + newUser + " (" + email + ")";
+
+      // Redirect to Tour Planner page after signup
+      window.location.href = "./Tour planner.html";
+    });
+  </script>
+</body>
+</html>
